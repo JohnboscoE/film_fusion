@@ -331,7 +331,7 @@ class _MovieScreenState extends State<MovieScreen> {
     }
   }
 
-  /// TMDB API Logic to find YouTube Trailer Key and Movie ID (Unchanged)
+  /// TMDB API Logic to find YouTube Trailer Key and Movie ID
   Future<Map<String, String>?> _fetchMovieData(
     String title,
     String year,
@@ -385,7 +385,7 @@ class _MovieScreenState extends State<MovieScreen> {
     return {'videoId': bestKey ?? fallbackKey!, 'tmdbId': tmdbId.toString()};
   }
 
-  /// --- Handle Pull-to-Refresh to return to trending page ---
+  ///Handle Pull-to-Refresh to return to trending page
   Future<void> _handleRefreshToTrending() async {
     if (_currentSearchQuery.isNotEmpty) {
       setState(() {
@@ -613,7 +613,6 @@ class _MovieScreenState extends State<MovieScreen> {
       );
     }
 
-    // Calculate item count: add 3 placeholder spots at the end if we are currently loading
     final itemCount = _searchResults.length + (_isPaginating ? 3 : 0);
 
     return GridView.builder(
@@ -622,7 +621,7 @@ class _MovieScreenState extends State<MovieScreen> {
       physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.all(12.0),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3, // Three cards per row
+        crossAxisCount: 3,
         childAspectRatio: 0.55,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
@@ -1017,7 +1016,6 @@ class _TrailerPlayerScreenState extends State<TrailerPlayerScreen> {
               textAlign: TextAlign.justify,
             )
           else
-            // Fallback message if no review is loaded (and not loading)
             TextButton.icon(
               icon: Icon(
                 Icons.psychology_outlined,
@@ -1208,7 +1206,7 @@ class _TrailerPlayerScreenState extends State<TrailerPlayerScreen> {
     );
   }
 
-  /// Fetches legal watch providers from TMDB
+  /// Fetche legal watch providers from TMDB
   Future<WatchProviderModel?> _fetchWatchProviders() async {
     final providersUrl =
         'https://api.themoviedb.org/3/movie/${widget.tmdbId}/watch/providers?api_key=${widget.tmdbApiKey}';
@@ -1257,7 +1255,6 @@ class _TrailerPlayerScreenState extends State<TrailerPlayerScreen> {
     return [];
   }
 
-  /// Handles the tap on a related movie card
   void _handleRelatedMovieTap(RelatedMovieModel movie) async {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Loading ${movie.title} trailer...')),
@@ -1405,7 +1402,7 @@ class _TrailerPlayerScreenState extends State<TrailerPlayerScreen> {
 
           const SizedBox(height: 10),
 
-          //AI Review Section (NEW)
+          //AI Review Section
           _buildAIReviewSection(),
 
           // Plot Summary
@@ -1444,7 +1441,7 @@ class _TrailerPlayerScreenState extends State<TrailerPlayerScreen> {
               if (snapshot.hasData && snapshot.data!.hasProviders) {
                 return _buildWatchProvidersSection(snapshot.data!);
               }
-              return const SizedBox.shrink(); // Hide if no providers found
+              return const SizedBox.shrink();
             },
           ),
 
